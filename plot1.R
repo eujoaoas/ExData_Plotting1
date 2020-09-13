@@ -1,0 +1,16 @@
+bd <- read.table("./household_power_consumption.txt", stringsAsFactors = FALSE, header = TRUE, sep =";"  )
+bd$Date <- as.Date(bd$Date, format="%d/%m/%Y")
+bd$Time <- format(bd$Time, format="%H:%M:%S")
+bd$Global_active_power <- as.numeric(bd$Global_active_power)
+bd$Global_reactive_power <- as.numeric(bd$Global_reactive_power)
+bd$Voltage <- as.numeric(bd$Voltage)
+bd$Global_intensity <- as.numeric(bd$Global_intensity)
+bd$Sub_metering_1 <- as.numeric(bd$Sub_metering_1)
+bd$Sub_metering_2 <- as.numeric(bd$Sub_metering_2)
+bd$Sub_metering_3 <- as.numeric(bd$Sub_metering_3)            
+
+subsetdata <- subset(bd, Date == "2007-01-02" | Date == "2007-02-02")
+png("plot1.png", width = 480, height = 480)
+hist(subsetdata$Global_active_power, col = "red", border = "black", main = "Global Active Power", 
+     xlab = "Global Active Power (kilowatts", ylab = "Frequency")
+dev.off()
